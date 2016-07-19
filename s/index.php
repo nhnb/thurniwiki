@@ -1,8 +1,7 @@
 <?php 
 
 require_once('config.php');
-require_once('backend/action/action.php');
-require_once('backend/main.php');
+require_once('backend/db.php');
 
 /**
  * creates the Action instance
