@@ -27,8 +27,12 @@ header {
 	background-color: #FFF;
 } 
 .logo {float:left; margin-right: 1em}
+
 section {
 	clear: both;
 	padding:1em;
 	background-color: #FFF
 }
+
+section img {max-width: 100%}
+div.error {color: #A00; font-weight: bold}
