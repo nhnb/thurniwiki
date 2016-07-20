@@ -5,6 +5,8 @@ class Action {
 	}
 
 	public function writeHtmlHeader($title) {
+		global $session;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,8 +19,16 @@ class Action {
 <div class="frame">
 <header>
 	<img class="logo" src="/s/frontend/logo.jpg">
-<h1><?php echo htmlspecialchars(CONFIG_SITE_TITLE);?></h1>
-	<a class="navbutton" href="/">Startseite</a> <a class="navbutton" href="#">Login</a>
+
+<?php 
+	echo '<h1>'.htmlspecialchars(CONFIG_SITE_TITLE).'</h1>';
+	echo '<a class="navbutton" href="/">Startseite</a>';
+	if (isset($session['accountId'])) {
+		echo '<a class="navbutton" href="?action=logout">Logout</a>';
+	} else {
+		echo '<a class="navbutton" href="?action=login">Login</a>';
+	}
+?>
 </header>
 <?php
 		}

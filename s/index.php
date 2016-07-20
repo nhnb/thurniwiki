@@ -2,6 +2,14 @@
 
 require_once('config.php');
 
+global $session;
+
+$session = array();
+session_start();
+if (isset($_SESSION['session'])) {
+	$session = $_SESSION['session'];
+}
+
 /**
  * creates the Action instance
  */
@@ -24,6 +32,6 @@ function createAction() {
 
 $action = createAction();
 $action->writeHttpHeader();
-$action->writeHtmlHeader('Titel der Seite');
+$action->writeHtmlHeader(CONFIG_SITE_TITLE);
 $action->writeContent();
 $action->writeHtmlFooter();

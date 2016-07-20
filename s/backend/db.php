@@ -94,8 +94,17 @@ class DB {
 		}
 		return null;
 	}
-	
 
+	public function getAccount($email) {
+		$sql = 'SELECT id, email, password FROM account WHERE email=:email';
+		$stmt = $this->connection()->prepare($sql);
+		$stmt->execute(array(
+			':email' => $email
+		));
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
+	
 	private static function databaseConnectionErrorMessage($message) {
 		@header('HTTP/1.0 500 Maintenance', true, 500);
 ?>
@@ -115,22 +124,33 @@ class DB {
 	
 	private function createDatabaseStructure() {
 		$sql = "
-		create table page (
-				id int auto_increment not null,
-				title VARCHAR(255),
-				primary key(id)
-				);
-		
-		create table page_version (
-				id int auto_increment not null,
-				page_id int not null,
-				account_id int not null,
-				content VARBINARY(100000000),
-				commitcomment VARCHAR(255),
-				read_permission VARCHAR(255),
-				timedate timestamp default CURRENT_TIMESTAMP,
-				primary key(id)
-				);
+create table account (
+  id int auto_increment not null,
+  email VARCHAR(255),
+  password VARCHAR(255),
+  timedate timestamp default CURRENT_TIMESTAMP,
+  status char(1),
+  primary key(id),
+  unique index(email)
+);
+
+create table page (
+  id int auto_increment not null,
+  title VARCHAR(255),
+  primary key(id),
+  unique index(title)
+);
+
+create table page_version (
+  id int auto_increment not null,
+  page_id int not null,
+  account_id int not null,
+  content VARBINARY(100000000),
+  commitcomment VARCHAR(255),
+  read_permission VARCHAR(255),
+  timedate timestamp default CURRENT_TIMESTAMP,
+  primary key(id)
+);
 		";
 	}
 }

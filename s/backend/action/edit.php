@@ -43,6 +43,8 @@ class EditAction extends Action {
 
 
 	public function writeHttpHeader() {
+		global $session;
+
 		if (!isset($session['accountId'])) {
 			header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['page'].'?action=login');
 			exit();
