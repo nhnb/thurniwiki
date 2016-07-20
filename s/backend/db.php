@@ -23,18 +23,78 @@ class DB {
 	 * @param string $title page title
 	 */
 	public function readNewestVersion($title) {
-		$sql = "SELECT content, account_id, timedate"
+		$sql = "SELECT content, account_id, read_permission, timedate"
 				." FROM page_version WHERE id = ("
 				." SELECT max(page_version.id) FROM page, page_version"
 				." WHERE page.title = :title "
 				." AND page_version.page_id = page.id)";
 		$stmt = DB::connection()->prepare($sql);
 		$stmt->execute(array(
-				':title' => $title
+			':title' => $title
 		));
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+	/**
+	 * saves a page to the database
+	 * @param string $title
+	 * @param binary $content
+	 * @param int $accountId
+	 * @param string $readPermission
+	 */
+	public function savePageVersion($title, $content, $accountId, $readPermission) {
+		$pageId = $this->getPageIdCreateIfNecessary($title);
+		$sql = "INSERT INTO page_version (page_id, content, account_id, read_permission) "
+				. " VALUES (:page_id, :content, :account_id, :read_permission)";
+		$stmt = $this->connection()->prepare($sql);
+		$stmt->execute(array(
+			':page_id' => $pageId,
+			':content' => $content,
+			':account_id' => $accountId,
+			':read_permission' => $readPermission
+		));
+	}
+	
+	
+	/**
+	 * gets the id of specified page, creating the page if it does not exists
+	 *
+	 * @param string $title page title
+	 * @return id of page
+	 */
+	public function getPageIdCreateIfNecessary($title) {
+		$id = $this->getPageId($title);
+		if (isset($id)) {
+			return $id;
+		}
+		$sql = "INSERT INTO page (title) VALUES (:title)";
+		$stmt = $this->connection()->prepare($sql);
+		$stmt->execute(array(
+			':title' => $title
+		));
+		return $this->getPageId($title);
+	}
+
+	/**
+	 * gets the id of specified page
+	 *
+	 * @param string $title page title
+	 * @return id of page or <code>null</code>.
+	 */
+	public function getPageId($title) {
+		$sql = "SELECT id FROM page WHERE page.title = :title";
+		$stmt = $this->connection()->prepare($sql);
+		$stmt->execute(array(
+			':title' => $title
+		));
+			
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($row) {
+			return $row['id'];
+		}
+		return null;
+	}
+	
 
 	private static function databaseConnectionErrorMessage($message) {
 		@header('HTTP/1.0 500 Maintenance', true, 500);
@@ -67,6 +127,7 @@ class DB {
 				account_id int not null,
 				content VARBINARY(100000000),
 				commitcomment VARCHAR(255),
+				read_permission VARCHAR(255),
 				timedate timestamp default CURRENT_TIMESTAMP,
 				primary key(id)
 				);

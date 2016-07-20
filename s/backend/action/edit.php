@@ -7,16 +7,33 @@ require_once('backend/db.php');
 class EditAction extends Action {
 	private $content;
 	private $title;
+	private $readpermission;
+	private $error;
 
 	public function __construct() {
+		global $db, $session;
+
 		$this->title = $_REQUEST['page'];
 		if (isset($_POST['content-editor'])) {
 			$this->content = $this->filterHtml($_POST['content-editor']);
+			$this->readpermission = $_POST['readpermission'];
+			if (!isset($session['accountId'])) {
+				$this->error = 'Die Sitzung ist abgelaufen.';
+			} else {
+				if ($_POST['csrf'] != $session['csrf']) {
+					$this->error = 'Sitzungsinformationen verloren. Bitte speichern Sie erneut.';
+				} else {
+					$db->savePageVersion($this->title, $this->content, $session['accountId'], $_POST['readpermission']);
+				}
+			}
 		} else {
-			global $db;
 			$row = $db->readNewestVersion($this->title);
 			if ($row) {
 				$this->content = $row['content'];
+				$this->readpermission = $row['read_permission'];
+			} else {
+				$this->content = '';
+				$this->readpermission = 'all, users';
 			}
 		}
 		if ($this->title === '') {
@@ -29,12 +46,19 @@ class EditAction extends Action {
 	}
 
 	function writeContent() {
-		global $session;
+		global $session, $db;
 
 ?>
 <form method="POST">
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($session['csrf']); ?>">
-<br><input type="submit" value="Speichern"><br><br>
+<br>
+Leseberechtigung: <input type="text" id="readpermission" name="readpermission" value="<?php echo htmlspecialchars($this->readpermission); ?>">
+<input type="submit" value="Speichern"><br><br>
+<?php 
+if ($this->error) {
+	echo '<div class="error">'.htmlspecialchars($this->error).'</div>';
+}
+?>
 <textarea id="content-editor" name="content-editor">
 	<?php echo $this->content; ?>
 </textarea>
