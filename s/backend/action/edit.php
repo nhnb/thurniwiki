@@ -41,11 +41,21 @@ class EditAction extends Action {
 		}
 	}
 
+
+	public function writeHttpHeader() {
+		if (!isset($session['accountId'])) {
+			header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['page'].'?action=login');
+			exit();
+		}
+	}
+
+
 	public function writeHtmlHeader() {
 		parent::writeHtmlHeader($this->title);
 	}
 
-	function writeContent() {
+
+	public function writeContent() {
 		global $session, $db;
 
 ?>
