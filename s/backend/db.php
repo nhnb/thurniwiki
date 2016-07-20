@@ -17,6 +17,25 @@ class DB {
 		return DB::$db;
 	}
 
+	/**
+	 * gets the most recent version of the specified page
+	 *
+	 * @param string $title page title
+	 */
+	public function readNewestVersion($title) {
+		$sql = "SELECT content, account_id, timedate"
+				." FROM page_version WHERE id = ("
+				." SELECT max(page_version.id) FROM page, page_version"
+				." WHERE page.title = :title "
+				." AND page_version.page_id = page.id)";
+		$stmt = DB::connection()->prepare($sql);
+		$stmt->execute(array(
+				':title' => $title
+		));
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
+
 	private static function databaseConnectionErrorMessage($message) {
 		@header('HTTP/1.0 500 Maintenance', true, 500);
 ?>
@@ -54,3 +73,6 @@ class DB {
 		";
 	}
 }
+
+global $db;
+$db = new DB();
