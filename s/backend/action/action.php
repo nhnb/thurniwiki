@@ -11,7 +11,7 @@ class Action {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset='UTF-8'">
 	<link rel="stylesheet" href="/s/frontend/thurniwiki-00001.css">
-	<title><?php echo htmlspecialchars($title.' &ndash; '.CONFIG_SITE_TITLE);?></title>
+	<title><?php echo htmlspecialchars($title).' &ndash; '.CONFIG_SITE_TITLE;?></title>
 </head>
 <body>
 <div class="frame">
