@@ -50,7 +50,7 @@ class ViewAction extends Action {
 			echo '<section>Page not found</section>';
 			return;
 		}
-		echo '<section><h1>'.$this->title.'</h1>';
+		echo '<section>';
 		echo $this->content;
 		echo '</section>';
 	}

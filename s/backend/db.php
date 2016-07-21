@@ -104,6 +104,14 @@ class DB {
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+	public function getListOfPages($prefix) {
+		$sql = 'SELECT title FROM page WHERE title LIKE :title ORDER BY 1';
+		$stmt = $this->connection()->prepare($sql);
+		$stmt->execute(array(
+			':title' => $prefix.'%'
+		));
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 	
 	private static function databaseConnectionErrorMessage($message) {
 		@header('HTTP/1.0 500 Maintenance', true, 500);
@@ -123,6 +131,7 @@ class DB {
 	}
 	
 	private function createDatabaseStructure() {
+#	ALTER DATABASE thurniwiki CHARSET 'UTF8';
 		$sql = "
 create table account (
   id int auto_increment not null,
