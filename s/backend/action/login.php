@@ -50,6 +50,7 @@ class LoginAction extends Action {
 
 		$session['accountId'] = $account['id'];
 		$session['email'] = $account['email'];
+		$session['status'] = $account['status'];
 		$session['csrf'] = $this->createRandomString(); 
 		$_SESSION['session'] = $session;
 	}
@@ -85,8 +86,8 @@ class LoginAction extends Action {
 ?>
 <p>Bitte melden Sie sich mit Ihrer E-Mail-Adresse und Passwort an</p>
 <form method="POST">
-	<label for="email">E-Mail: </label><input type="email" name="email" id="email"><br>
-	<label for="password">Passwort:</label><input type="password" name="password" id="password"><br>
+	<label for="email">E-Mail: </label><input type="email" name="email" id="email" required><br>
+	<label for="password">Passwort:</label><input type="password" name="password" id="password" required><br>
 	<br>
 	<?php if (isset($this->error)) { echo '<div class="error">'.htmlspecialchars($this->error).'</div>';}?>
 	<input type="submit" value="Login">

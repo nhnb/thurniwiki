@@ -16,6 +16,8 @@ if (isset($_SESSION['session'])) {
  * creates the Action instance
  */
 function createAction() {
+	global $session;
+	
 	$action = "view";
 	if (isset($_REQUEST['action'])) {
 		$action = $_REQUEST['action'];
@@ -26,6 +28,12 @@ function createAction() {
 	if (!file_exists('backend/action/'.$action.'.php')) {
 		$action = "unknown";
 	}
+
+	// Force change of initial password
+	if ($action !== 'logout' && isset($session['status']) && $session['status'] === 'I') {
+		$action = "password";
+	}
+	
 	require_once('backend/action/'.$action.'.php');
 	$action = ucfirst($action)."Action";
 	return new $action();

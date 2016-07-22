@@ -96,7 +96,7 @@ class DB {
 	}
 
 	public function getAccount($email) {
-		$sql = 'SELECT id, email, password FROM account WHERE email=:email';
+		$sql = 'SELECT id, email, password, status FROM account WHERE email=:email';
 		$stmt = $this->connection()->prepare($sql);
 		$stmt->execute(array(
 			':email' => $email
