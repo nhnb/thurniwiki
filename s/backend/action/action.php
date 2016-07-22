@@ -18,16 +18,16 @@ class Action {
 <body>
 <div class="frame">
 <header>
-	<img class="logo" src="/s/frontend/logo.jpg">
+	<a href="/" class="home"><img class="logo" src="/s/frontend/logo.jpg"></a>
 
 <?php 
 	echo '<h1>'.htmlspecialchars(CONFIG_SITE_TITLE).'</h1>';
-	echo '<a class="navbutton" href="/">Startseite</a>';
 	if (isset($session['accountId'])) {
-		echo '<a class="navbutton" href="?action=edit">Bearbeiten</a>';
+		echo '<a class="navbutton" href="/?action=index">Index</a>';
+		echo '<a class="navbutton" href="?action=edit">Seite bearbeiten</a>';
 		echo '<a class="navbutton" href="?action=logout">Logout</a>';
 	} else {
-		echo '<a class="navbutton" href="?action=login">Login</a>';
+		echo '<a class="navbutton right" href="?action=login">Login</a>';
 	}
 ?>
 </header>

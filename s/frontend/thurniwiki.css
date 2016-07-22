@@ -34,5 +34,8 @@ section {
 	background-color: #FFF
 }
 
+a.home {underline: none}
+.right{float: right}
+
 section img {max-width: 100%}
 div.error {color: #A00; font-weight: bold}
