@@ -56,21 +56,6 @@ class LoginAction extends Action {
 	}
 	
 	/**
-	 * Creates a secure hash of the password
-	 *
-	 * @param string $password
-	 * @return sha512crypt hash
-	 */
-	public function hashPassword($password) {
-		$alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-		$salt = '$6$';
-		for($i = 0; $i < 16; $i++) {
-			$salt .= $alphabet[rand(0, 63)];
-		}
-		return crypt($password, $salt);
-	}
-
-	/**
 	 * creates a random string
 	 */
 	private function createRandomString() {

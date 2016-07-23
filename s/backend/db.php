@@ -103,6 +103,16 @@ class DB {
 		));
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+	
+	public function updatePassword($accountId, $passwordHash) {
+		$sql = "UPDATE account SET status='A', password=:password WHERE id=:id";
+		$stmt = $this->connection()->prepare($sql);
+		$stmt->execute(array(
+			':id' => $accountId,
+			':password' => $passwordHash
+		));
+		
+	}
 
 	public function getListOfPages($prefix) {
 		$sql = 'SELECT title FROM page WHERE title LIKE :title ORDER BY 1';
