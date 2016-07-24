@@ -2,6 +2,7 @@
 
 require_once('action.php');
 require_once('backend/db.php');
+require_once('backend/util.php');
 
 
 class EditAction extends Action {
@@ -15,7 +16,7 @@ class EditAction extends Action {
 
 		$this->title = $_REQUEST['page'];
 		if (isset($_POST['content-editor'])) {
-			$this->content = $this->filterHtml($_POST['content-editor']);
+			$this->content = filter_html($_POST['content-editor']);
 			$this->readpermission = $_POST['readpermission'];
 			if (!isset($session['accountId'])) {
 				$this->error = 'Die Sitzung ist abgelaufen.';
@@ -80,10 +81,4 @@ if ($this->error) {
 <?php
 	}
 
-	function filterHtml($html) {
-		require_once 'backend/htmlpurifier/library/HTMLPurifier.auto.php';
-		$purifier = new HTMLPurifier();
-		return $purifier->purify($html);
-	}
-	
 }
