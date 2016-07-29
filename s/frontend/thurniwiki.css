@@ -39,3 +39,13 @@ a.home {underline: none}
 
 section img {max-width: 100%}
 div.error {color: #A00; font-weight: bold}
+
+li {
+	list-style-type: none;
+	line-height: 40px;
+}
+
+.fileicon {
+	width: 32px; height: 32px;
+	vertical-align: middle
+}

@@ -4,6 +4,7 @@ require_once('action.php');
 require_once('backend/db.php');
 
 class IndexAction extends Action {
+	private $title;
 
 	public function writeHttpHeader() {
 		global $session;
@@ -13,15 +14,43 @@ class IndexAction extends Action {
 			exit();
 		}
 	}
+	
+	public function extractDirectoryEntry($entry, $index) {
+		$entry = trim(substr($entry, $index), '/');
+		$pos = strpos($entry, '/');
+		if ($pos > 0) {
+			$entry = substr($entry, 0, $pos + 1);
+		}
+		return $entry;
+	}
 
 	public function writeContent() {
 		global $session, $db;
 
-		$rows = $db->getListOfPages($_REQUEST['page']);
+		$this->title = trim($_REQUEST['page'], '/');
+		$rows = $db->getListOfPages($this->title . '/');
 
-		echo '<ul>';
+		echo '<h1>Verzeichnis: '.htmlspecialchars($this->title).'</h1>';
+
+		echo '<ul class="directorylisting">';
+		$lastEntry = '';
 		foreach ($rows as $row) {
-			echo '<li><a href="/'.htmlspecialchars($row['title']).'">'.htmlspecialchars($row['title']).'</a>';
+			$entry = $this->extractDirectoryEntry($row['title'], strlen($this->title));
+			if ($entry === $lastEntry) {
+				continue;
+			}
+			$lastEntry = $entry;
+			$icon = substr($entry, strrpos($entry, '.') + 1);
+			if (strpos($entry, '/') > 0) {
+				$suffix = "?action=index";
+				$icon = "folder";
+				$entry = trim($entry, '/');
+			} else {
+				$suffix = "";
+			}
+			echo '<li><a href="'.htmlspecialchars($entry).$suffix
+				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"> '
+				.htmlspecialchars($entry).'</a>';
 		}
 		echo '</ul>';
 

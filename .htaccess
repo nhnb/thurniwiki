@@ -1,5 +1,5 @@
 RewriteEngine On
 
-RewriteRule ^s/frontend/(.*)-.*\.(.*) s/frontend/$1.$2 [L]
+RewriteRule ^s/frontend/(.*)-[0-9]*\.(.*) s/frontend/$1.$2 [L]
 RewriteRule ^s/ - [L]
 RewriteRule ^(.*)$ s/index.php?page=$1 [L,QSA]

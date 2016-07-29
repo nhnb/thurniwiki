@@ -111,7 +111,6 @@ class DB {
 			':id' => $accountId,
 			':password' => $passwordHash
 		));
-		
 	}
 
 	public function getListOfPages($prefix) {
