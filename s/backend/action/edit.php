@@ -15,6 +15,9 @@ class EditAction extends Action {
 		global $db, $session;
 
 		$this->title = $_REQUEST['page'];
+		if ($this->title === '') {
+			$this->title = 'index.html';
+		}
 		if (isset($_POST['content-editor'])) {
 			$this->content = filter_html($_POST['content-editor']);
 			$this->readpermission = $_POST['readpermission'];
@@ -36,9 +39,6 @@ class EditAction extends Action {
 				$this->content = '';
 				$this->readpermission = 'all, users';
 			}
-		}
-		if ($this->title === '') {
-			$this->title = CONFIG_SITE_TITLE;
 		}
 	}
 

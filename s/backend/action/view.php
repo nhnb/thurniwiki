@@ -19,6 +19,9 @@ class ViewAction extends Action {
 		global $db;
 
 		$this->title = $_REQUEST['page'];
+		if ($this->title === '') {
+			$this->title = 'index.html';
+		}
 		$row = $db->readNewestVersion($this->title);
 		if ($row) {
 			$this->content = $row['content'];
