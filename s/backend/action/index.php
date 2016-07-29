@@ -28,7 +28,12 @@ class IndexAction extends Action {
 		global $session, $db;
 
 		$this->title = trim($_REQUEST['page'], '/');
-		$rows = $db->getListOfPages($this->title . '/');
+		$lookup = $this->title;
+		// unless we are in the root folder, require a /
+		if (strlen($lookup) > 0) {
+			$lookup = $lookup . '/';
+		}
+		$rows = $db->getListOfPages($lookup);
 
 		echo '<h1>Verzeichnis: '.htmlspecialchars($this->title).'</h1>';
 
