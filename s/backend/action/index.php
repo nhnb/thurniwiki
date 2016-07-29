@@ -53,7 +53,7 @@ class IndexAction extends Action {
 			} else {
 				$suffix = "";
 			}
-			echo '<li><a href="'.htmlspecialchars($entry).$suffix
+			echo '<li><a href="/'.htmlspecialchars($lookup.$entry).$suffix
 				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"> '
 				.htmlspecialchars($entry).'</a>';
 		}
