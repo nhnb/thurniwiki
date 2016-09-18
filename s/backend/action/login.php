@@ -51,6 +51,7 @@ class LoginAction extends Action {
 		$session['accountId'] = $account['id'];
 		$session['email'] = $account['email'];
 		$session['status'] = $account['status'];
+		$session['groups'] = $account['groups'];
 		$session['csrf'] = $this->createRandomString(); 
 		$_SESSION['session'] = $session;
 	}

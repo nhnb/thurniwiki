@@ -34,18 +34,18 @@ class ViewAction extends Action {
 		}
 	}
 
-	public function mayRead() {
+	public function mayAccess() {
 		global $session;
-
-		if (strpos($this->readPermission, 'all') !== false) {
-			return true;
+		$required = explode(',', $this->readPermission);
+		$available = ['public'];
+		if (isset($session) && isset($session['groups'])) {
+			$available = explode(',', $session['groups']);
 		}
-
-		return isset($session['accountId']);
+		return count(array_intersect($required, $available)) > 0;
 	}
 
 	public function writeHttpHeader() {
-		if (!$this->mayRead()) {
+		if (!$this->mayAccess()) {
 			header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['page'].'?action=login');
 			exit();
 		} else if ($this->content == null) {

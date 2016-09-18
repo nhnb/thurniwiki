@@ -26,7 +26,7 @@ class PasswordAction extends Action {
 			$this->error .= "Das neue Password und die Wiederholung müssen identisch sein.\r\n";
 		}
 		if ($_REQUEST['old'] === $_REQUEST['new']) {
-			$this->error .= "Das neue Password darf nicht gleich das alte Passwort sein.\r\n";
+			$this->error .= "Das neue Password darf nicht gleich dem alten Passwort sein.\r\n";
 		}
 
 		// update password in database

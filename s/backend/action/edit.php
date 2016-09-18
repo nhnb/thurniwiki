@@ -13,11 +13,11 @@ class EditAction extends Action {
 
 	public function __construct() {
 		global $db, $session;
-
 		$this->title = $_REQUEST['page'];
 		if ($this->title === '') {
 			$this->title = 'index.html';
 		}
+		$row = $db->readNewestVersion($this->title);
 		if (isset($_POST['content-editor'])) {
 			$this->content = filter_html($_POST['content-editor']);
 			$this->readpermission = $_POST['readpermission'];
@@ -27,21 +27,38 @@ class EditAction extends Action {
 				if ($_POST['csrf'] != $session['csrf']) {
 					$this->error = 'Sitzungsinformationen verloren. Bitte speichern Sie erneut.';
 				} else {
-					$db->savePageVersion($this->title, $this->content, $session['accountId'], $_POST['readpermission']);
+					if (!$row || $this->mayAccess($row['read_permission'])) {
+						$db->savePageVersion($this->title, $this->content, $session['accountId'], $_POST['readpermission']);
+					} else {
+						$this->error = 'Fehlende Berechtigung';
+					}
 				}
 			}
 		} else {
-			$row = $db->readNewestVersion($this->title);
+			if ($row && !$this->mayAccess($row['read_permission'])) {
+				$this->error = 'Fehlende Berechtigung';
+				return;
+			}
+			
 			if ($row) {
 				$this->content = $row['content'];
 				$this->readpermission = $row['read_permission'];
 			} else {
 				$this->content = '';
-				$this->readpermission = 'all, users';
+				$this->readpermission = 'public'; // TODO: Use folder as default
 			}
 		}
 	}
 
+	public function mayAccess($permission) {
+		global $session;
+		$required = explode(',', $permission);
+		$available = ['public'];
+		if (isset($session) && isset($session['groups'])) {
+			$available = explode(',', $session['groups']);
+		}
+		return count(array_intersect($required, $available)) > 0;
+	}
 
 	public function writeHttpHeader() {
 		global $session;
@@ -65,8 +82,9 @@ class EditAction extends Action {
 <form method="POST">
 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($session['csrf']); ?>">
 <br>
-Leseberechtigung: <input type="text" id="readpermission" name="readpermission" value="<?php echo htmlspecialchars($this->readpermission); ?>">
-<input type="submit" value="Speichern"><br><br>
+Artikel-Berechtigungen: <input type="text" id="readpermission" name="readpermission" value="<?php echo htmlspecialchars($this->readpermission); ?>">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Speichern"><br>
+Meine Berechtigungen: <?php echo htmlspecialchars($session['groups']);?> <br><br>
 <?php 
 if ($this->error) {
 	echo '<div class="error">'.htmlspecialchars($this->error).'</div>';

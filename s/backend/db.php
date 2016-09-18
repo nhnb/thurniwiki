@@ -96,7 +96,7 @@ class DB {
 	}
 
 	public function getAccount($email) {
-		$sql = 'SELECT id, email, password, status FROM account WHERE email=:email';
+		$sql = 'SELECT id, email, password, status, groups FROM account WHERE email=:email';
 		$stmt = $this->connection()->prepare($sql);
 		$stmt->execute(array(
 			':email' => $email
@@ -146,6 +146,7 @@ create table account (
   id int auto_increment not null,
   email VARCHAR(255),
   password VARCHAR(255),
+  groups VARCHAR(255),
   timedate timestamp default CURRENT_TIMESTAMP,
   status char(1),
   primary key(id),
