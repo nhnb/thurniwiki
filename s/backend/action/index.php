@@ -54,8 +54,8 @@ class IndexAction extends Action {
 				$suffix = "";
 			}
 			echo '<li><a href="/'.htmlspecialchars($lookup.$entry).$suffix
-				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"> '
-				.htmlspecialchars($entry).'</a>';
+				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
+				.' <a href="/'.htmlspecialchars($lookup.$entry).$suffix.'">'.htmlspecialchars($entry).'</a>';
 		}
 		echo '</ul>';
 
@@ -63,7 +63,8 @@ class IndexAction extends Action {
 		<form enctype="multipart/form-data" action="?action=upload" method="POST">
 			<input type="file" name="file">
 			<input type="hidden" name="csrf" value="<?php echo htmlspecialchars($session['csrf']); ?>">
-			<input type="hidden" name="readpermission" value="users">
+			<br>Berechtiungen:
+			<input type="input" name="readpermission">
 			<input type="submit" value="Speichern"><br><br>
 		</form>
 <?php
