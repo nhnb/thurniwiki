@@ -50,15 +50,6 @@ class EditAction extends Action {
 		}
 	}
 
-	public function mayAccess($permission) {
-		global $session;
-		$required = explode(',', $permission);
-		$available = ['public'];
-		if (isset($session) && isset($session['groups'])) {
-			$available = explode(',', $session['groups']);
-		}
-		return count(array_intersect($required, $available)) > 0;
-	}
 
 	public function writeHttpHeader() {
 		global $session;

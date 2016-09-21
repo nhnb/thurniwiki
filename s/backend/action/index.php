@@ -14,7 +14,7 @@ class IndexAction extends Action {
 			exit();
 		}
 	}
-	
+
 	public function extractDirectoryEntry($entry, $index) {
 		$entry = trim(substr($entry, $index), '/');
 		$pos = strpos($entry, '/');
@@ -33,6 +33,15 @@ class IndexAction extends Action {
 		if (strlen($lookup) > 0) {
 			$lookup = $lookup . '/';
 		}
+
+		$row = $db->readNewestVersion($lookup);
+		if ($row) {
+			if (!$this->mayAccess($row['read_permission'])) {
+				echo 'Fehlende Berechtigung';
+				return;
+			}
+		}
+
 		$rows = $db->getListOfPages($lookup);
 
 		echo '<h1>Verzeichnis: '.htmlspecialchars($this->title).'</h1>';
@@ -46,7 +55,7 @@ class IndexAction extends Action {
 			}
 			$lastEntry = $entry;
 			$icon = substr($entry, strrpos($entry, '.') + 1);
-			if (strpos($entry, '/') > 0) {
+			if (strpos($entry, '/') > 0 || $entry.'/' === $row['title']) {
 				$suffix = "?action=index";
 				$icon = "folder";
 				$entry = trim($entry, '/');

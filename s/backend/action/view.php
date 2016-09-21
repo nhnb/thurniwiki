@@ -34,18 +34,9 @@ class ViewAction extends Action {
 		}
 	}
 
-	public function mayAccess() {
-		global $session;
-		$required = explode(',', $this->readPermission);
-		$available = ['public'];
-		if (isset($session) && isset($session['groups'])) {
-			$available = explode(',', $session['groups']);
-		}
-		return count(array_intersect($required, $available)) > 0;
-	}
 
 	public function writeHttpHeader() {
-		if (!$this->mayAccess()) {
+		if (!$this->mayAccess($this->readPermission)) {
 			header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['page'].'?action=login');
 			exit();
 		} else if ($this->content == null) {
