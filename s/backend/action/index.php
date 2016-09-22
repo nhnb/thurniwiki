@@ -107,7 +107,7 @@ class IndexAction extends Action {
 		}
 
 		$rows = $db->getListOfPages($lookup);
-
+		
 		echo '<h1>Verzeichnis: '.htmlspecialchars($this->title).'</h1>';
 		$this->writeNewDialog($dir);
 
@@ -115,7 +115,7 @@ class IndexAction extends Action {
 		$lastEntry = '';
 		foreach ($rows as $row) {
 			$entry = $this->extractDirectoryEntry($row['title'], strlen($this->title));
-			if ($entry === $lastEntry) {
+			if (trim($entry, '/') === trim($lastEntry, '/')) {
 				continue;
 			}
 			$lastEntry = $entry;
