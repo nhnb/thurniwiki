@@ -49,3 +49,16 @@ li {
 	width: 32px; height: 32px;
 	vertical-align: middle
 }
+
+.hidden {
+	display: none;
+}
+
+label {
+	display: inline-block;
+	width: 10em;
+}
+
+fieldset {
+	margin-top: 1em;
+}

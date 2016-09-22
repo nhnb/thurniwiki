@@ -39,13 +39,17 @@ class EditAction extends Action {
 				$this->error = 'Fehlende Berechtigung';
 				return;
 			}
-			
+
 			if ($row) {
 				$this->content = $row['content'];
 				$this->readpermission = $row['read_permission'];
 			} else {
 				$this->content = '';
-				$this->readpermission = 'public'; // TODO: Use folder as default
+				if (isset($_REQUEST['permission'])) {
+					$this->readpermission = $_REQUEST['permission'];
+				} else {
+					$this->readpermission = 'public';
+				}
 			}
 		}
 	}
