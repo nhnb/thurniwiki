@@ -61,7 +61,7 @@ class IndexAction extends Action {
 	}
 
 	public function extractDirectoryEntry($entry, $index) {
-		$entry = trim(substr($entry, $index), '/');
+		$entry = ltrim(substr($entry, $index), '/');
 		$pos = strpos($entry, '/');
 		if ($pos > 0) {
 			$entry = substr($entry, 0, $pos + 1);
