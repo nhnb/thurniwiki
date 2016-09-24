@@ -79,7 +79,7 @@ class IndexAction extends Action {
 		<form id="newform" enctype="multipart/form-data" action="?action=upload" method="POST">
 			<input type="hidden" name="csrf" value="<?php echo htmlspecialchars($session['csrf']); ?>">
 			<input type="hidden" name="newtype" id="newtype" value="">
-			<label for="permission">Berechtiungen:</label> <input type="text" name="permission" value="<?php echo htmlspecialchars($dir['read_permission'])?>">
+			<label for="permission">Berechtigungen:</label> <input type="text" name="permission" value="<?php echo htmlspecialchars($dir['read_permission'])?>">
 			<div id="pagenamelabel"><label for="pagename">Name:</label> <input type="text" id="pagename" name="pagename"></div>
 			<br><input type="file" id="file" name="file">
 			<br><input type="submit" value="Speichern"><br><br>

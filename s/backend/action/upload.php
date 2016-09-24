@@ -36,7 +36,7 @@ class UploadAction extends Action {
 			$content = filter_html($content);
 		}
 
-		$db->savePageVersion($title, $content, $session['accountId'], $_POST['readpermission']);
+		$db->savePageVersion($title, $content, $session['accountId'], $_POST['permission']);
 		echo 'File uploaded successfully.';
 	}
 }
