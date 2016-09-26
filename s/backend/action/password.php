@@ -31,6 +31,7 @@ class PasswordAction extends Action {
 
 		// update password in database
 		if ($this->error === '') {
+			$session['status'] = 'A';
 			$db->updatePassword($session['accountId'], $this->hashPassword($_REQUEST['new']));
 		}
 	}
