@@ -103,6 +103,16 @@ class DB {
 		));
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+
+	public function insertAccount($email, $passwordHash, $groups) {
+		$sql = "INSERT INTO account (email, password, status, groups) VALUES (:email, :password, 'I', :groups)";
+		$stmt = $this->connection()->prepare($sql);
+		$stmt->execute(array(
+				':email' => $email,
+				':password' => $passwordHash,
+				':groups' => $groups
+		));
+	}
 	
 	public function updatePassword($accountId, $passwordHash) {
 		$sql = "UPDATE account SET status='A', password=:password WHERE id=:id";

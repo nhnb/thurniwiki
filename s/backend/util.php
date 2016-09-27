@@ -82,3 +82,20 @@ function get_mime_type_from_filename($filename) {
 		return 'application/octet-stream';
 	}
 }
+
+
+/**
+ * Creates a secure hash of the password
+ *
+ * @param string $password
+ * @return sha512crypt hash
+ */
+function hashPassword($password) {
+	$alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+	$salt = '$6$';
+	for($i = 0; $i < 16; $i++) {
+		$salt .= $alphabet[rand(0, 63)];
+	}
+	return crypt($password, $salt);
+}
+
