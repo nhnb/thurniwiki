@@ -35,7 +35,7 @@ class CreateaccountAction extends Action {
 		echo $this->error;
 		// create account
 		if ($this->error === '') {
-			$db->insertAccount($_POST['email'], hashPassword($_REQUEST['new']), $_POST['groups']);
+			$db->insertAccount($_POST['email'], hashPassword($_REQUEST['new']), $_POST['realname'], $_POST['groups']);
 		}
 	}
 
@@ -59,6 +59,7 @@ class CreateaccountAction extends Action {
 	<label for="email">E-Mail:</label><input type="email" name="email" id="email" required minlength="3"><br>
 	<label for="new">Neues Passwort:</label><input type="password" name="new" id="new" required minlength="6"><br>
 	<label for="repeat">Wiederholung:</label><input type="password" name="repeat" id="repeat" required minlength="6"><br>
+	<label for="realname">Name:</label><input type="text" name="realname" id="realname" required><br>
 	<label for="groups">Gruppen:</label><input type="text" name="groups" id="groups" required><br>
 	<label for="info">Existierende Gruppen:</label> public,bewohner,bewohner_kontaktliste,eigentümer
 	<br>

@@ -30,7 +30,7 @@ class DB {
 				." AND page_version.page_id = page.id)";
 		$stmt = DB::connection()->prepare($sql);
 		$stmt->execute(array(
-			':title' => $title
+				':title' => $title
 		));
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
@@ -96,7 +96,7 @@ class DB {
 	}
 
 	public function getAccount($email) {
-		$sql = 'SELECT id, email, password, status, groups FROM account WHERE email=:email';
+		$sql = 'SELECT id, email, password, realname, status, groups FROM account WHERE email=:email';
 		$stmt = $this->connection()->prepare($sql);
 		$stmt->execute(array(
 			':email' => $email
@@ -104,13 +104,14 @@ class DB {
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
-	public function insertAccount($email, $passwordHash, $groups) {
-		$sql = "INSERT INTO account (email, password, status, groups) VALUES (:email, :password, 'I', :groups)";
+	public function insertAccount($email, $passwordHash, $realname, $groups) {
+		$sql = "INSERT INTO account (email, password, realname, status, groups) VALUES (:email, :password, :realname, 'I', :groups)";
 		$stmt = $this->connection()->prepare($sql);
 		$stmt->execute(array(
-				':email' => $email,
-				':password' => $passwordHash,
-				':groups' => $groups
+			':email' => $email,
+			':password' => $passwordHash,
+			':realname' => $realname,
+			':groups' => $groups
 		));
 	}
 	
@@ -124,7 +125,7 @@ class DB {
 	}
 
 	public function getListOfPages($prefix) {
-		$sql = 'SELECT title FROM page WHERE title LIKE :title ORDER BY 1';
+		$sql = 'SELECT title, read_permission FROM page WHERE title LIKE :title ORDER BY 1';
 		$stmt = $this->connection()->prepare($sql);
 		$stmt->execute(array(
 			':title' => $prefix.'%'
@@ -156,8 +157,10 @@ create table account (
   id int auto_increment not null,
   email VARCHAR(255),
   password VARCHAR(255),
+  realname VARCHAR(255),
   groups VARCHAR(255),
   timedate timestamp default CURRENT_TIMESTAMP,
+  lastseen timestamp default CURRENT_TIMESTAMP,
   status char(1),
   primary key(id),
   unique index(email)
