@@ -125,7 +125,15 @@ class DB {
 	}
 
 	public function getListOfPages($prefix) {
-		$sql = 'SELECT title, read_permission FROM page WHERE title LIKE :title ORDER BY 1';
+		$sql = "SELECT title, read_permission"
+		." FROM page, page_version"
+		." WHERE page.id = page_version.page_id AND page_version.id IN ("
+		."    SELECT max(page_version.id)"
+		."    FROM page, page_version"
+		."    WHERE page.id = page_version.page_id AND title LIKE :title"
+		."    GROUP BY page_version.page_id"
+		.") ORDER BY 1";
+		
 		$stmt = $this->connection()->prepare($sql);
 		$stmt->execute(array(
 			':title' => $prefix.'%'

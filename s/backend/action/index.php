@@ -114,6 +114,9 @@ class IndexAction extends Action {
 		echo '<ul class="directorylisting">';
 		$lastEntry = '';
 		foreach ($rows as $row) {
+			if (!$this->mayAccess($row['read_permission'])) {
+				continue;
+			}
 			$entry = $this->extractDirectoryEntry($row['title'], strlen($this->title));
 			if (trim($entry, '/') === trim($lastEntry, '/')) {
 				continue;
