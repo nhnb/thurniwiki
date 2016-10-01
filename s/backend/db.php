@@ -140,6 +140,17 @@ class DB {
 		));
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
+
+	public function getRecentChanges($prefix) {
+		$sql = "SELECT page.title, page_version.read_permission, account.realname, page_version.timedate"
+			." FROM page, account, page_version"
+			." WHERE page.id = page_version.page_id AND page_version.account_id=account.id"
+			." ORDER BY page_version.timedate DESC LIMIT 1000";
+
+		$stmt = $this->connection()->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 	
 	private static function databaseConnectionErrorMessage($message) {
 		@header('HTTP/1.0 500 Maintenance', true, 500);
