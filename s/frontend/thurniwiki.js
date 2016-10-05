@@ -29,7 +29,9 @@
 
 	document.addEventListener("DOMContentLoaded", function(event) {
 		if (document.getElementById("content-editor")) {
-			CKEDITOR.replace('content-editor');
+			CKEDITOR.replace('content-editor', {
+			     height: "300"
+			});
 		}
 
 		var element = document.getElementById("newfolder");
