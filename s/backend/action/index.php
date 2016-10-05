@@ -112,6 +112,16 @@ class IndexAction extends Action {
 		$this->writeNewDialog($dir);
 
 		echo '<ul class="directorylisting">';
+		if ($lookup !== '') {
+			$pos = strrpos(trim($lookup, '/'), '/');
+			$parent = '';
+			if ($pos > 0) {
+				$parent = substr($lookup, 0, $pos);
+			}
+			echo '<li><a href="/'.htmlspecialchars($parent).'?action=index">'
+				.'<img class="fileicon" src="/s/frontend/free-file-icons/32px/folder.png"></a>'
+				.' <a href="/'.htmlspecialchars($parent).'?action=index">..</a>';
+		}
 		$lastEntry = '';
 		foreach ($rows as $row) {
 			if (!$this->mayAccess($row['read_permission'])) {
