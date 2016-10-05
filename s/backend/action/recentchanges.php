@@ -23,7 +23,7 @@ class RecentChangesAction extends Action {
 				continue;
 			}
 			$icon = substr($entry, strrpos($entry, '.') + 1);
-			echo '<tr><td>'.htmlspecialchars($row['timedate'])
+			echo '<tr><td>'.htmlspecialchars(substr($row['timedate'], 0, 16))
 				.'</td><td><a href="/'.htmlspecialchars($entry)
 				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
 				.' <a href="/'.htmlspecialchars($entry).'">'.htmlspecialchars($entry)
