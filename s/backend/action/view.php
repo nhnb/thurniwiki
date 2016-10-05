@@ -59,10 +59,17 @@ class ViewAction extends Action {
 	}
 
 	function writeContent() {
+		global $session;
+
 		if ($this->content == null) {
 			echo '<section>Page not found</section>';
 			return;
 		}
+
+		if (isset($session) && isset($session['accountId'])) {
+			echo '<br><a class="navbutton right" href="?action=edit">Seite bearbeiten</a><br class="clear"><br>';
+		}
+		
 		echo '<section>';
 		echo $this->content;
 		echo '</section>';

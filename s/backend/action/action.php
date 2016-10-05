@@ -23,8 +23,8 @@ class Action {
 <?php 
 	echo '<h1>'.htmlspecialchars(CONFIG_SITE_TITLE).'</h1>';
 	if (isset($session['accountId'])) {
-		echo '<a class="navbutton" href="/?action=index">Index</a>';
-		echo '<a class="navbutton" href="?action=edit">Seite bearbeiten</a>';
+		echo '<a class="navbutton" href="/?action=index">Wurzel-Verzeichnis</a>';
+		echo '<a class="navbutton" href="/?action=recentchanges">Letzte Änderungen</a>';
 		echo '<a class="navbutton" href="?action=logout">Logout</a>';
 	} else {
 		echo '<a class="navbutton right" href="?action=login">Login</a>';

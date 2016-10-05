@@ -35,7 +35,8 @@ section {
 }
 
 a.home {underline: none}
-.right{float: right}
+.right {float: right}
+.clear {clear: both}
 
 section img {max-width: 100%}
 div.error {color: #A00; font-weight: bold}
