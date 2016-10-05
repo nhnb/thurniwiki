@@ -179,7 +179,7 @@ create table account (
   realname VARCHAR(255),
   groups VARCHAR(255),
   timedate timestamp default CURRENT_TIMESTAMP,
-  lastseen timestamp default CURRENT_TIMESTAMP,
+  lastseen timestamp,
   status char(1),
   primary key(id),
   unique index(email)
