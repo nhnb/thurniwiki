@@ -26,7 +26,7 @@ class LoginAction extends Action {
 			if (isset($_REQUEST['url'])) {
 				header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['url']);
 			} else {
-				header('Location: https://'.$_SERVER['SERVER_NAME'].'/');
+				header('Location: https://'.$_SERVER['SERVER_NAME'].'/?action=index');
 			}
 			return true;
 		}
