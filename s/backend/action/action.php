@@ -12,6 +12,7 @@ class Action {
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset='UTF-8'">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/s/frontend/thurniwiki-00001.css">
 	<title><?php echo htmlspecialchars($title).' &ndash; '.CONFIG_SITE_TITLE;?></title>
 </head>
