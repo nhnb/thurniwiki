@@ -19,10 +19,10 @@ class Action {
 <body>
 <div class="frame">
 <header>
-	<a href="/" class="home"><img class="logo" src="/s/frontend/logo.jpg"></a>
+	<a href="/" class="home hidesmall"><img class="logo" src="/s/frontend/logo.jpg"></a>
 
 <?php 
-	echo '<h1>'.htmlspecialchars(CONFIG_SITE_TITLE).'</h1>';
+	echo '<h1><a href="/" class="home">'.htmlspecialchars(CONFIG_SITE_TITLE).'</a></h1>';
 	if (isset($session['accountId'])) {
 		echo '<a class="navbutton" href="/?action=index">Dateien</a>';
 		echo '<a class="navbutton" href="/?action=recentchanges">Letzte Änderungen</a>';

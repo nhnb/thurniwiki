@@ -34,7 +34,7 @@ section {
 	background-color: #FFF
 }
 
-a.home {underline: none}
+a.home {text-decoration: none; color: #FFF}
 .right {float: right}
 .clear {clear: both}
 
@@ -62,4 +62,9 @@ label {
 
 fieldset {
 	margin-top: 1em;
+}
+
+
+@media (max-width: 700px) {
+	.hidesmall {display: none}
 }
