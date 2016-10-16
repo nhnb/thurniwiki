@@ -41,7 +41,7 @@ a.home {text-decoration: none; color: #FFF}
 section img {max-width: 100%}
 div.error {color: #A00; font-weight: bold}
 
-li {
+ul.directorylisting li {
 	list-style-type: none;
 	line-height: 40px;
 }
