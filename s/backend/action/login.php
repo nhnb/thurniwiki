@@ -78,6 +78,9 @@ class LoginAction extends Action {
 	<?php if (isset($this->error)) { echo '<div class="error">'.htmlspecialchars($this->error).'</div>';}?>
 	<input type="submit" value="Login">
 </form>
+
+	<p>
 <?php
+		echo CONFIG_NEW_ACCOUNT_INFO;
 	}
 }
