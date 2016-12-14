@@ -68,3 +68,9 @@ fieldset {
 @media (max-width: 700px) {
 	.hidesmall {display: none}
 }
+
+@media print {
+	.navbutton {
+		display: none;
+	}
+}
