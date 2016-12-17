@@ -6,6 +6,16 @@ ini_set('post_max_size', '100M');
 
 require_once('config.php');
 
+if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == "on")) {
+	ini_set('session.cookie_secure', 1);
+}
+header('Strict-Transport-Security: max-age=15552000; includeSubDomains');
+header('X-Frame-Options: sameorigin');
+header('X-Content-Type-Options: nosniff');
+header('X-XSS-Protection: 1; mode=block');
+header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline';");
+
+
 global $session;
 
 $session = array();

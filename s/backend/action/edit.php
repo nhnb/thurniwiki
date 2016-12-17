@@ -12,6 +12,8 @@ class EditAction extends Action {
 	private $error;
 
 	public function __construct() {
+		header_remove('Content-Security-Policy');
+
 		global $db, $session;
 		$this->title = $_REQUEST['page'];
 		if ($this->title === '') {
