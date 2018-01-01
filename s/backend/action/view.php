@@ -47,7 +47,6 @@ class ViewAction extends Action {
 		// and exit the script before it can output the html
 		// navigation frame.
 		if ($this->mimeType !== 'text/html') {
-			header('Content-Disposition: attachment');
 			header('Content-Type: '.$this->mimeType);
 			echo $this->content;
 			exit;
