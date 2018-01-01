@@ -3,6 +3,10 @@
 require_once('action.php');
 require_once('backend/db.php');
 
+function turlencode($s) {
+    return str_replace('%2F', '/', urlencode($s));
+}
+
 class IndexAction extends Action {
 	private $title;
 
@@ -118,9 +122,9 @@ class IndexAction extends Action {
 			if ($pos > 0) {
 				$parent = substr($lookup, 0, $pos);
 			}
-			echo '<li><a href="/'.htmlspecialchars($parent).'?action=index">'
+			echo '<li><a href="/'.turlencode($parent).'?action=index">'
 				.'<img class="fileicon" src="/s/frontend/free-file-icons/32px/folder.png"></a>'
-				.' <a href="/'.htmlspecialchars($parent).'?action=index">..</a>';
+				.' <a href="/'.turlencode($parent).'?action=index">..</a>';
 		}
 		$lastEntry = '';
 		foreach ($rows as $row) {
@@ -140,9 +144,9 @@ class IndexAction extends Action {
 			} else {
 				$suffix = "";
 			}
-			echo '<li><a href="/'.htmlspecialchars($lookup.$entry).$suffix
+			echo '<li><a href="/'.turlencode($lookup.$entry).$suffix
 				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
-				.' <a href="/'.htmlspecialchars($lookup.$entry).$suffix.'">'.htmlspecialchars($entry).'</a>';
+				.' <a href="/'.turlencode($lookup.$entry).$suffix.'">'.htmlspecialchars($entry).'</a>';
 		}
 		echo '</ul>';
 ?>
