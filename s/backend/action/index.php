@@ -122,9 +122,9 @@ class IndexAction extends Action {
 			if ($pos > 0) {
 				$parent = substr($lookup, 0, $pos);
 			}
-			echo '<li><a href="'.$_SERVER['SERVER_NAME'].CONFIG_PATH.turlencode($parent).'?action=index">'
-				.'<img class="fileicon" src="/s/frontend/free-file-icons/32px/folder.png"></a>'
-				.' <a href="'.$_SERVER['SERVER_NAME'].CONFIG_PATH.turlencode($parent).'?action=index">..</a>';
+			echo '<li><a href="https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.turlencode($parent).'?action=index">'
+				.'<img class="fileicon" src="'.CONFIG_PATH.'/s/frontend/free-file-icons/32px/folder.png"></a>'
+				.' <a href="https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.turlencode($parent).'?action=index">..</a>';
 		}
 		$lastEntry = '';
 		foreach ($rows as $row) {
@@ -144,13 +144,13 @@ class IndexAction extends Action {
 			} else {
 				$suffix = "";
 			}
-			echo '<li><a href="'.$_SERVER['SERVER_NAME'].CONFIG_PATH.turlencode($lookup.$entry).$suffix
-				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
-				.' <a href="'.$_SERVER['SERVER_NAME'].CONFIG_PATH.turlencode($lookup.$entry).$suffix.'">'.htmlspecialchars($entry).'</a>';
+			echo '<li><a href="https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.turlencode($lookup.$entry).$suffix
+				.'"><img class="fileicon" src="'.CONFIG_PATH.'/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
+				.' <a href="https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.turlencode($lookup.$entry).$suffix.'">'.htmlspecialchars($entry).'</a>';
 		}
 		echo '</ul>';
 ?>
-		<script src="/s/frontend/thurniwiki.js"></script>
+		<script src="<?php echo CONFIG_PATH?>/s/frontend/thurniwiki.js"></script>
 <?php
 	}
 }

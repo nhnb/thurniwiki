@@ -91,8 +91,8 @@ if ($this->error) {
 	<?php echo $this->content; ?>
 </textarea>
 </form>
-<script src="/s/frontend/ckeditor/ckeditor.js"></script>
-<script src="/s/frontend/thurniwiki.js"></script>
+<script src="<?php echo CONFIG_PATH?>/s/frontend/ckeditor/ckeditor.js"></script>
+<script src="<?php echo CONFIG_PATH?>/s/frontend/thurniwiki.js"></script>
 <?php
 	}
 

@@ -19,7 +19,7 @@ class Action {
 <body>
 <div class="frame">
 <header>
-	<a href="<?php echo CONFIG_PATH?>/" class="home hidesmall"><img class="logo" src="/s/frontend/logo.jpg"></a>
+	<a href="<?php echo CONFIG_PATH?>/" class="home hidesmall"><img class="logo" src="<?php echo CONFIG_PATH?>/s/frontend/logo.jpg"></a>
 
 <?php 
 	echo '<h1><a href="/" class="home">'.htmlspecialchars(CONFIG_SITE_TITLE).'</a></h1>';

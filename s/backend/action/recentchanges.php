@@ -25,7 +25,7 @@ class RecentChangesAction extends Action {
 			$icon = substr($entry, strrpos($entry, '.') + 1);
 			echo '<tr><td>'.htmlspecialchars(substr($row['timedate'], 0, 16))
 				.'</td><td><a href="/'.htmlspecialchars($entry)
-				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
+				.'"><img class="fileicon" src="'.CONFIG_PATH.'/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
 				.' <a href="/'.CONFIG_PATH.htmlspecialchars($entry).'">'.htmlspecialchars($entry)
 				.'</a></td><td>'.htmlspecialchars($row['realname']).'</td></tr>';
 		}
