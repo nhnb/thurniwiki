@@ -75,7 +75,12 @@ class LoginAction extends Action {
 	<label for="email">E-Mail: </label><input type="email" name="email" id="email" required><br>
 	<label for="password">Passwort:</label><input type="password" name="password" id="password" required><br>
 	<br>
-	<?php if (isset($this->error)) { echo '<div class="error">'.htmlspecialchars($this->error).'</div>';}?>
+	<?php 
+	if (isset($this->error)) { 
+	    echo '<div class="error">'.htmlspecialchars($this->error).'</div>';
+	}
+	echo '<input name="url" type="hidden" value="'.htmlspecialchars($_SERVER['REQUEST_URI']).'">';
+	?>
 	<input type="submit" value="Login">
 </form>
 
