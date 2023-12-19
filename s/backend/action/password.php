@@ -42,7 +42,7 @@ class PasswordAction extends Action {
 		global $session;
 	
 		if (!isset($session['accountId'])) {
-			header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['page'].'?action=login');
+			header('Location: https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.'/'.$_REQUEST['page'].'?action=login');
 			exit();
 		}
 	}

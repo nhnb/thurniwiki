@@ -11,7 +11,7 @@ class LogoutAction extends Action {
 	}
 
 	public function writeHttpHeader() {
-		header('Location: https://'.$_SERVER['SERVER_NAME'].'/');
+		header('Location: https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.'/');
 		exit;
 	}
 

@@ -14,7 +14,7 @@ class IndexAction extends Action {
 		global $session;
 
 		if (!isset($session['accountId'])) {
-			header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['page'].'?action=login');
+			header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.CONFIG_PATH.$_REQUEST['page'].'?action=login');
 			exit();
 		}
 
@@ -47,7 +47,7 @@ class IndexAction extends Action {
 		}
 		$db->savePageVersion($pagename.'/', '', $session['accountId'], $_POST['permission']);
 		
-		header('Location: https://'.$_SERVER['SERVER_NAME'].'/'
+		header('Location: https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.'/'
 				.$pagename
 				.'?action=index');
 		exit();
@@ -58,7 +58,7 @@ class IndexAction extends Action {
 		if (strpos(str_replace('/', '_', $pagename), '.html') === false) {
 			$pagename = $pagename . '.html';
 		}
-		header('Location: https://'.$_SERVER['SERVER_NAME'].'/'
+		header('Location: https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.'/'
 				.trim($_REQUEST['page'].'/'.$pagename, '/')
 				.'?action=edit&permission='.$_REQUEST['permission']);
 		exit();
@@ -122,9 +122,9 @@ class IndexAction extends Action {
 			if ($pos > 0) {
 				$parent = substr($lookup, 0, $pos);
 			}
-			echo '<li><a href="/'.turlencode($parent).'?action=index">'
+			echo '<li><a href="/'.CONFIG_PATH.turlencode($parent).'?action=index">'
 				.'<img class="fileicon" src="/s/frontend/free-file-icons/32px/folder.png"></a>'
-				.' <a href="/'.turlencode($parent).'?action=index">..</a>';
+				.' <a href="/'.CONFIG_PATH.turlencode($parent).'?action=index">..</a>';
 		}
 		$lastEntry = '';
 		foreach ($rows as $row) {
@@ -144,9 +144,9 @@ class IndexAction extends Action {
 			} else {
 				$suffix = "";
 			}
-			echo '<li><a href="/'.turlencode($lookup.$entry).$suffix
+			echo '<li><a href="/'.CONFIG_PATH.turlencode($lookup.$entry).$suffix
 				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
-				.' <a href="/'.turlencode($lookup.$entry).$suffix.'">'.htmlspecialchars($entry).'</a>';
+				.' <a href="/'.CONFIG_PATH.turlencode($lookup.$entry).$suffix.'">'.htmlspecialchars($entry).'</a>';
 		}
 		echo '</ul>';
 ?>

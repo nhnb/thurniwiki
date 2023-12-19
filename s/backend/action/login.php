@@ -24,9 +24,9 @@ class LoginAction extends Action {
 
 		if (isset($session['accountId'])) {
 			if (isset($_REQUEST['url'])) {
-				header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['url']);
+				header('Location: https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.'/'.$_REQUEST['url']);
 			} else {
-				header('Location: https://'.$_SERVER['SERVER_NAME'].'/?action=index');
+				header('Location: https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.'/?action=index');
 			}
 			return true;
 		}

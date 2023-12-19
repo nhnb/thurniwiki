@@ -26,7 +26,7 @@ class RecentChangesAction extends Action {
 			echo '<tr><td>'.htmlspecialchars(substr($row['timedate'], 0, 16))
 				.'</td><td><a href="/'.htmlspecialchars($entry)
 				.'"><img class="fileicon" src="/s/frontend/free-file-icons/32px/'.htmlspecialchars($icon).'.png"></a>'
-				.' <a href="/'.htmlspecialchars($entry).'">'.htmlspecialchars($entry)
+				.' <a href="/'.CONFIG_PATH.htmlspecialchars($entry).'">'.htmlspecialchars($entry)
 				.'</a></td><td>'.htmlspecialchars($row['realname']).'</td></tr>';
 		}
 		echo '</table>';

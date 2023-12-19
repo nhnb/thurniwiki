@@ -37,7 +37,7 @@ class ViewAction extends Action {
 
 	public function writeHttpHeader() {
 		if (!$this->mayAccess($this->readPermission)) {
-			header('Location: https://'.$_SERVER['SERVER_NAME'].'/'.$_REQUEST['page'].'?action=login');
+			header('Location: https://'.$_SERVER['SERVER_NAME'].CONFIG_PATH.'/'.$_REQUEST['page'].'?action=login');
 			exit();
 		} else if ($this->content == null) {
 			header('HTTP/1.1 404 Not Found');
