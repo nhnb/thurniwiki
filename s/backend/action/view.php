@@ -48,8 +48,7 @@ class ViewAction extends Action {
 		// navigation frame.
 		if ($this->mimeType !== 'text/html') {
 			header('Content-Type: '.$this->mimeType);
-			file_put_contents('/tmp/a.zip', $this->content);
-			//echo $this->content;
+			echo $this->content;
 			exit;
 		}
 	}
